@@ -50,13 +50,13 @@ public class Menu {
 
     public void cadastrarComprador(){
         this.cadastrarUsuario();
-        System.out.println("cpf: ");
-        String cpf = scanner.nextLine();
+        System.out.println("cpf (apenas números): ");
+        int cpf = scanner.nextInt();
     }
 
     public void cadastrarOrganizador(){
         this.cadastrarUsuario();
-        System.out.println("cnpj: ");
-        String cpf = scanner.nextLine();
+        System.out.println("cnpj (apenas números): ");
+        int cpf = scanner.nextInt();
     }
 }
