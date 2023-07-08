@@ -32,15 +32,15 @@ public class UsuarioController {
         return service.getCompradorById(id);
     }
 
-    public Comprador getCompradorByEmail(String email){
-        return service.getCompradorByEmail(email);
+    public Comprador getCompradorByCpf(int cpf){
+        return service.getCompradorByCpf(cpf);
     }
 
     public Organizador getOrganizadorById(int id){
         return service.getOrganizadorById(id);
     }
 
-    public Organizador getOrganizadorByEmail(String email){
-        return getOrganizadorByEmail(email);
+    public Organizador getOrganizadorByCnpj(int cnpj){
+        return service.getOrganizadorByCnpj(cnpj);
     }
 }
