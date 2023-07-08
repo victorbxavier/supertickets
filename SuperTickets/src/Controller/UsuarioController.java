@@ -3,50 +3,44 @@ package Controller;
 import Entity.Comprador;
 import Entity.Organizador;
 import Entity.Usuario;
+import Service.UsuarioService;
 
 public class UsuarioController {
+
+    UsuarioService service = new UsuarioService();
     public boolean cadastrarUsuario(Usuario usuario){
-        //cadastrar usuario
-        return false;
+        return service.cadastrarUsuario(usuario);
     }
 
     public boolean cadastrarComprador(Comprador comprador){
-        //cadastrar comprador
-        return false;
+        return service.cadastrarComprador(comprador);
     }
 
     public boolean cadastrarOrganizador(Organizador organizador){
-        //cadastrar organizador
-        return false;
+        return service.cadastrarOrganizador(organizador);
     }
 
     public Usuario getUsuarioById(int id){
-        Usuario usuario = new Usuario();
-        return usuario;
+        return service.getUsuarioById(id);
     }
 
-    public Usuario getUsuarioByEmail(String Email){
-        Usuario usuario = new Usuario();
-        return usuario;
+    public Usuario getUsuarioByEmail(String email){
+        return service.getUsuarioByEmail(email);
     }
 
     public Comprador getCompradorById(int id){
-        Comprador comprador = new Comprador();
-        return comprador;
+        return service.getCompradorById(id);
     }
 
     public Comprador getCompradorByEmail(String email){
-        Comprador comprador = new Comprador();
-        return comprador;
+        return service.getCompradorByEmail(email);
     }
 
     public Organizador getOrganizadorById(int id){
-        Organizador organizador = new Organizador();
-        return organizador;
+        return service.getOrganizadorById(id);
     }
 
     public Organizador getOrganizadorByEmail(String email){
-        Organizador organizador = new Organizador();
-        return organizador;
+        return getOrganizadorByEmail(email);
     }
 }
