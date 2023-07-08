@@ -5,16 +5,19 @@ import Entity.Organizador;
 import Entity.Usuario;
 
 public class UsuarioController {
-    public void cadastrarUsuario(Usuario usuario){
+    public boolean cadastrarUsuario(Usuario usuario){
         //cadastrar usuario
+        return false;
     }
 
-    public void cadastrarComprador(Comprador comprador){
+    public boolean cadastrarComprador(Comprador comprador){
         //cadastrar comprador
+        return false;
     }
 
-    public void cadastrarOrganizador(Organizador organizador){
+    public boolean cadastrarOrganizador(Organizador organizador){
         //cadastrar organizador
+        return false;
     }
 
     public Usuario getUsuarioById(int id){

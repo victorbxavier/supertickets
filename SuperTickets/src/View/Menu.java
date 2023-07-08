@@ -48,7 +48,10 @@ public class Menu {
 
         Usuario usuario = new Usuario(nome, email, senha, 0);
 
-        controller.cadastrarUsuario(usuario);
+        if(!controller.cadastrarUsuario(usuario)){
+            System.out.println("Não foi possível concluir o cadastro.");
+            return -1;
+        }
 
         //pega o id que foi cadastrado no banco
         return this.getIdUsuario(usuario);
@@ -74,22 +77,36 @@ public class Menu {
     public void cadastrarComprador(){
         int id = this.cadastrarUsuario();
 
+        if(id < 0) return;
+
         System.out.println("cpf (apenas números): ");
         int cpf = scanner.nextInt();
 
         Comprador comprador = new Comprador(id, cpf);
 
-        controller.cadastrarComprador(comprador);
+        if(controller.cadastrarComprador(comprador)){
+            System.out.println("Usuário cadastrado com sucesso!");
+        }
+        else{
+            System.out.println("Não foi possível concluir o cadastro.");
+        }
     }
 
     public void cadastrarOrganizador(){
         int id = this.cadastrarUsuario();
+
+        if(id < 0) return;
 
         System.out.println("cnpj (apenas números): ");
         int cnpj = scanner.nextInt();
 
         Organizador organizador = new Organizador(id, cnpj);
 
-        controller.cadastrarOrganizador(organizador);
+        if(controller.cadastrarOrganizador(organizador)){
+            System.out.println("Usuário cadastrado com sucesso!");
+        }
+        else{
+            System.out.println("Não foi possível concluir o cadastro.");
+        }
     }
 }
