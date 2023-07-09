@@ -46,7 +46,7 @@ public class Menu {
         System.out.println("Senha: ");
         String senha = scanner.nextLine();
 
-        Usuario usuario = new Usuario(nome, email, senha, 0);
+        Usuario usuario = new Usuario(nome, email, senha);
 
         if(!controller.cadastrarUsuario(usuario)){
             System.out.println("Não foi possível concluir o cadastro.");
