@@ -102,5 +102,5 @@ public class CompradorDAO {
 
         return false;
     }
-    
+
 }

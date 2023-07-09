@@ -28,7 +28,7 @@ public class Organizador extends Usuario{
         return this.usuario_id_organizador;
     }
 
-    public int getCnjpj(){
+    public int getCnpj(){
         return this.cnpj;
     }
 
