@@ -2,14 +2,14 @@ package Entity;
 
 public class Organizador extends Usuario{
     int usuario_id_organizador;
-    int cnpj;
+    String cnpj;
 
     //construtores
     public Organizador(){
 
     }
 
-    public Organizador(int id, int cnpj){
+    public Organizador(int id, String cnpj){
         this.usuario_id_organizador = id;
         this.cnpj = cnpj;
     }
@@ -19,7 +19,7 @@ public class Organizador extends Usuario{
         this.usuario_id_organizador = id;
     }
 
-    public void setCnpj(int cnpj){
+    public void setCnpj(String cnpj){
         this.cnpj = cnpj;
     }
 
@@ -28,7 +28,7 @@ public class Organizador extends Usuario{
         return this.usuario_id_organizador;
     }
 
-    public int getCnpj(){
+    public String getCnpj(){
         return this.cnpj;
     }
 

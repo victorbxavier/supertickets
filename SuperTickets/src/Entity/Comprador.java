@@ -2,14 +2,14 @@ package Entity;
 
 public class Comprador extends Usuario{
     int usuario_id_comprador;
-    int cpf;
+    String cpf;
 
     //construtores
     public Comprador(){
 
     }
 
-    public Comprador(int id, int cpf){
+    public Comprador(int id, String cpf){
         this.usuario_id_comprador = id;
         this.cpf = cpf;
     }
@@ -19,7 +19,7 @@ public class Comprador extends Usuario{
         this.usuario_id_comprador = id;
     }
 
-    public void setCpf(int cpf){
+    public void setCpf(String cpf){
         this.cpf = cpf;
     }
 
@@ -28,7 +28,7 @@ public class Comprador extends Usuario{
         return this.usuario_id_comprador;
     }
 
-    public int getCpf(){
+    public String getCpf(){
         return this.cpf;
     }
 

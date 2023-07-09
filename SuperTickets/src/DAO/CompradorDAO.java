@@ -25,7 +25,7 @@ public class CompradorDAO {
 
     public PreparedStatement buildFullStatementSave(PreparedStatement pst, Comprador comprador) throws SQLException{
         pst.setInt(1, comprador.getId());
-        pst.setInt(2, comprador.getCpf());
+        pst.setString(2, comprador.getCpf());
         return pst;
     }
 
@@ -70,7 +70,7 @@ public class CompradorDAO {
         }
         return null;
     }
-    public Comprador getByCpf(int cpf) throws SQLException{
+    public Comprador getByCpf(String cpf) throws SQLException{
         String query = "SELECT * FROM comprador";
         PreparedStatement ps;
         ps = con.prepareStatement(query);
@@ -78,7 +78,7 @@ public class CompradorDAO {
 
         while (rs.next()) {
             Comprador comprador = buildUsuario(rs);
-            if (comprador.getCpf() == cpf) {
+            if (comprador.getCpf().equals(cpf)) {
                 return comprador;
             }
 

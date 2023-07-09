@@ -81,7 +81,7 @@ public class UsuarioService {
         return comprador;
     }
 
-    public Comprador getCompradorByCpf(int cpf){
+    public Comprador getCompradorByCpf(String cpf){
         Comprador comprador = new Comprador();
 
         try{
@@ -105,7 +105,7 @@ public class UsuarioService {
         return organizador;
     }
 
-    public Organizador getOrganizadorByCnpj(int cnpj){
+    public Organizador getOrganizadorByCnpj(String cnpj){
         Organizador organizador = new Organizador();
 
         try{

@@ -23,7 +23,7 @@ public class OrganizadorDAO {
 
     public PreparedStatement buildFullStatementSave(PreparedStatement pst, Organizador organizador) throws SQLException{
         pst.setInt(1, organizador.getId());
-        pst.setInt(2, organizador.getCnpj());
+        pst.setString(2, organizador.getCnpj());
         return pst;
     }
 
@@ -66,7 +66,7 @@ public class OrganizadorDAO {
         }
         return null;
     }
-    public Organizador getByCnpj(int cnpj) throws SQLException{
+    public Organizador getByCnpj(String cnpj) throws SQLException{
         String query = "SELECT * FROM organizador";
         PreparedStatement ps;
         ps = con.prepareStatement(query);
@@ -74,7 +74,7 @@ public class OrganizadorDAO {
 
         while (rs.next()) {
             Organizador organizador = buildUsuario(rs);
-            if (organizador.getCnpj() == cnpj) {
+            if (organizador.getCnpj().equals(cnpj)) {
                 return organizador;
             }
 

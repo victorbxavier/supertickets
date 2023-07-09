@@ -32,7 +32,7 @@ public class UsuarioController {
         return service.getCompradorById(id);
     }
 
-    public Comprador getCompradorByCpf(int cpf){
+    public Comprador getCompradorByCpf(String cpf){
         return service.getCompradorByCpf(cpf);
     }
 
@@ -40,7 +40,7 @@ public class UsuarioController {
         return service.getOrganizadorById(id);
     }
 
-    public Organizador getOrganizadorByCnpj(int cnpj){
+    public Organizador getOrganizadorByCnpj(String cnpj){
         return service.getOrganizadorByCnpj(cnpj);
     }
 }
