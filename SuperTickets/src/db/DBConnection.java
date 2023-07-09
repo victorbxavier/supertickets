@@ -22,7 +22,7 @@ public class DBConnection {
         if (driver.equals(DBDriver.MYSQL)) {
             return "jdbc:mysql://localhost/" + dbname + "?user=" + user + "&password=" + pwd;
         } else if (driver.equals(DBDriver.SQLSERVER)) {
-            return "jdbc:sqlserver://localhost; databaseName=" + dbname + "; user=" + user + ";password=" + pwd + ";";
+            return "jdbc:sqlserver://127.0.0.1; databaseName=" + dbname + "; user=" + user + ";password=" + pwd + ";";
         }
         return null;
     }
