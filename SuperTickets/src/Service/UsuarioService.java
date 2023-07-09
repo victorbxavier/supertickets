@@ -18,12 +18,10 @@ public class UsuarioService {
     CompradorDAO compradorDAO = new CompradorDAO();
     OrganizadorDAO organizadorDAO = new OrganizadorDAO();
 
+    private static final String SALT = "super_tickets_salt";
+
     public boolean cadastrarUsuario(Usuario usuario){
-        //criptografia
-        String senha = usuario.getSenha();
-        String salt = this.generateSalt();
-        String senhaCriptografada = encryptPassword(senha, salt);
-        usuario.setSenha(senhaCriptografada);
+        this.criptografar(usuario);
 
         try{
             usuarioDAO.save(usuario);
@@ -127,13 +125,6 @@ public class UsuarioService {
         return organizador;
     }
 
-    public String generateSalt(){
-        SecureRandom random = new SecureRandom();
-        byte[] saltBytes = new byte[16];
-        random.nextBytes(saltBytes);
-        return bytesToHex(saltBytes);
-    }
-
     private static String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {
@@ -142,8 +133,8 @@ public class UsuarioService {
         return sb.toString();
     }
 
-    public static String encryptPassword(String password, String salt) {
-        String saltedPassword = salt + password;
+    public static String encryptPassword(String password) {
+        String saltedPassword = SALT + password;
         try{
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] hashedBytes = md.digest(saltedPassword.getBytes());
@@ -153,6 +144,23 @@ public class UsuarioService {
         }
         return "";
 
+    }
+
+    public boolean verificarSenha(Usuario usuario){
+        Usuario usuarioSalvo = this.getUsuarioByEmail(usuario.getEmail());
+        return usuarioSalvo.getSenha().equals(usuario.getSenha());
+    }
+
+    public Usuario criptografar(Usuario usuario){
+        String senha = usuario.getSenha();
+        String senhaCriptografada = encryptPassword(senha);
+        usuario.setSenha(senhaCriptografada);
+        return usuario;
+    }
+
+    public boolean login(Usuario usuario){
+        this.criptografar(usuario);
+        return this.verificarSenha(usuario);
     }
 
 }

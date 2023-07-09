@@ -43,4 +43,8 @@ public class UsuarioController {
     public Organizador getOrganizadorByCnpj(String cnpj){
         return service.getOrganizadorByCnpj(cnpj);
     }
+
+    public boolean login(Usuario usuario){
+        return service.login(usuario);
+    }
 }

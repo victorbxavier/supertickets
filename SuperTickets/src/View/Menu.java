@@ -25,7 +25,20 @@ public class Menu {
     }
 
     public void login(){
+        System.out.println("Preencha seus dados: ");
+        System.out.println("Email: ");
+        String email = scanner.nextLine();
+        System.out.println("Senha: ");
+        String senha = scanner.nextLine();
 
+        Usuario usuario = new Usuario(email, senha);
+        if(controller.login(usuario)){
+            usuario = controller.getUsuarioByEmail(usuario.getEmail());
+            System.out.println("Bem vindo(a) " + usuario.getNome() + "!");
+        }
+        else{
+            System.out.println("Usuário não cadastrado!");
+        }
     }
 
     public int getIdUsuario(Usuario usuario){
