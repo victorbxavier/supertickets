@@ -50,4 +50,8 @@ public class Usuario {
     public int getId(){
         return this.id_usuario;
     }
+
+    public void printUsuario(){
+        System.out.println("Nome: " + this.getNome() + "\nEmail: " + this.getEmail());
+    }
 }

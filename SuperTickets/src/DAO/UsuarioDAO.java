@@ -77,7 +77,7 @@ public class UsuarioDAO {
 
         while (rs.next()) {
             Usuario usuario = buildUsuario(rs);
-            if (usuario.getEmail() == email) {
+            if (usuario.getEmail().equals(email)) {
                 return usuario;
             }
 

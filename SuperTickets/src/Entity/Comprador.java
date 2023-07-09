@@ -32,6 +32,11 @@ public class Comprador extends Usuario{
         return this.cpf;
     }
 
+    public void printComprador(){
+        this.printUsuario();
+        System.out.println("Cpf: " + this.cpf + "\n id: " + this.usuario_id_comprador);
+    }
+
 
 
 

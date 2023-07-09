@@ -32,4 +32,9 @@ public class Organizador extends Usuario{
         return this.cnpj;
     }
 
+    public void printComprador(){
+        this.printUsuario();
+        System.out.println("Cnpj: " + this.cnpj + "\n id: " + this.usuario_id_organizador);
+    }
+
 }
