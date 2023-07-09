@@ -16,7 +16,7 @@ public class UsuarioDAO {
 
     public UsuarioDAO() {
         if (con == null) {
-            con = new DBConnection().getConnection(DBDriver.MYSQL, dados.getSchema(), dados.getUser(), dados.getTable());
+            con = new DBConnection().getConnection(DBDriver.MYSQL, dados.getSchema(), dados.getUser(), dados.getPassword());
         }
     }
 
