@@ -11,11 +11,10 @@ public class Usuario {
 
     }
 
-    public Usuario(String nome, String email, String senha, int id){
+    public Usuario(String nome, String email, String senha){
         this.nome = nome;
         this.email = email;
         this.senha = senha;
-        this.id_usuario = id;
     }
 
     //setters
@@ -50,5 +49,9 @@ public class Usuario {
 
     public int getId(){
         return this.id_usuario;
+    }
+
+    public void printUsuario(){
+        System.out.println("Nome: " + this.getNome() + "\nEmail: " + this.getEmail());
     }
 }

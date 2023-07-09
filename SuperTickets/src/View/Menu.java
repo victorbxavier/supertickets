@@ -46,7 +46,7 @@ public class Menu {
         System.out.println("Senha: ");
         String senha = scanner.nextLine();
 
-        Usuario usuario = new Usuario(nome, email, senha, 0);
+        Usuario usuario = new Usuario(nome, email, senha);
 
         if(!controller.cadastrarUsuario(usuario)){
             System.out.println("Não foi possível concluir o cadastro.");
@@ -79,8 +79,8 @@ public class Menu {
 
         if(id < 0) return;
 
-        System.out.println("cpf (apenas números): ");
-        int cpf = scanner.nextInt();
+        System.out.println("cpf: ");
+        String cpf = scanner.nextLine();
 
         Comprador comprador = new Comprador(id, cpf);
 
@@ -97,8 +97,8 @@ public class Menu {
 
         if(id < 0) return;
 
-        System.out.println("cnpj (apenas números): ");
-        int cnpj = scanner.nextInt();
+        System.out.println("cnpj: ");
+        String cnpj = scanner.nextLine();
 
         Organizador organizador = new Organizador(id, cnpj);
 
