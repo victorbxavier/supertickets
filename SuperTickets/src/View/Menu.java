@@ -49,7 +49,8 @@ public class Menu {
             }
         }
         else{
-            System.out.println("Usuário não cadastrado!");
+            System.out.println("Login falhou!\n");
+            this.show();
         }
     }
 
