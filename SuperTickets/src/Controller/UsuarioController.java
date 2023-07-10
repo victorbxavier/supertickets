@@ -5,6 +5,8 @@ import Entity.Organizador;
 import Entity.Usuario;
 import Service.UsuarioService;
 
+import java.util.ArrayList;
+
 public class UsuarioController {
 
     UsuarioService service = new UsuarioService();
@@ -46,5 +48,41 @@ public class UsuarioController {
 
     public boolean login(Usuario usuario){
         return service.login(usuario);
+    }
+
+    public ArrayList<Integer> getAllCompradoresIds(){
+        ArrayList<Comprador> compradores = new ArrayList<Comprador>();
+        compradores = service.getAllCompradores();
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+
+        for(Comprador comprador: compradores){
+            ids.add(comprador.getId());
+        }
+
+        return ids;
+    }
+
+    public ArrayList<Integer> getAllOrganizadoresIds(){
+        ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
+        organizadores = service.getAllOrganizadores();
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+
+        for(Organizador organizador : organizadores){
+            ids.add(organizador.getId());
+        }
+
+        return ids;
+    }
+
+    public boolean isComprador(int id){
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+        ids = this.getAllCompradoresIds();
+        return ids.contains(id);
+    }
+
+    public boolean isOrganizador(int id){
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+        ids = this.getAllOrganizadoresIds();
+        return ids.contains(id);
     }
 }

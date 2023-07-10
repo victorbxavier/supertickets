@@ -11,6 +11,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UsuarioService {
 
@@ -76,6 +77,31 @@ public class UsuarioService {
 
         return usuario;
     }
+
+    public ArrayList<Comprador> getAllCompradores(){
+        ArrayList<Comprador> compradores = new ArrayList<Comprador>();
+
+        try{
+            compradores = compradorDAO.getAllCompradores();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        return compradores;
+    }
+
+    public ArrayList<Organizador> getAllOrganizadores(){
+        ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
+
+        try{
+            organizadores = organizadorDAO.getAllOrganizadores();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        return organizadores;
+    }
+
 
     public Comprador getCompradorById(int id){
         Comprador comprador = new Comprador();
