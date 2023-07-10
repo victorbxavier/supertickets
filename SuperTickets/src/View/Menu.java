@@ -41,20 +41,15 @@ public class Menu {
             usuario = controller.getUsuarioByEmail(usuario.getEmail());
             System.out.println("Bem vindo(a) " + usuario.getNome() + "!");
             if(controller.isComprador(usuario.getId())){
-                System.out.println("Você é um comprador");
                 this.menuComprador();
             }
             else if(controller.isOrganizador(usuario.getId())){
-                System.out.println("Você é um organizador");
                 this.menuOrganizador();
             }
         }
         else{
             System.out.println("Usuário não cadastrado!");
         }
-
-
-
     }
 
 
@@ -77,7 +72,8 @@ public class Menu {
     public void menuOrganizador(){
         System.out.println("[1] Visualizar Eventos");
         System.out.println("[2] Cadastrar Evento");
-        System.out.println("[3] Sair");
+        System.out.println("[3] Visualizar Eventos Cadastrados");
+        System.out.println("[4] Sair");
 
         int opcao = scanner.nextInt();
         switch(opcao){
@@ -88,6 +84,9 @@ public class Menu {
                 //chama funcao de cadastrar evento
                 break;
             case 3:
+                //chama funçao de exibir eventos cadastrados pelo usuario
+                break;
+            case 4:
                 System.exit(0);
                 //termina o programa
                 break;
