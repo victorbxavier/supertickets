@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CompradorDAO {
 
@@ -32,7 +33,7 @@ public class CompradorDAO {
     public Comprador buildUsuario(ResultSet rs) throws SQLException{
         Comprador comprador = new Comprador();
         comprador.setId(rs.getInt("usuario_id_comprador"));
-        comprador.setId(rs.getInt("cpf"));
+        comprador.setCpf(rs.getString("cpf"));
 
         return comprador;
     }
@@ -63,6 +64,8 @@ public class CompradorDAO {
 
         while (rs.next()) {
             Comprador comprador = buildUsuario(rs);
+            System.out.println("comprador criado: ");
+            comprador.printComprador();
             if (comprador.getId() == id) {
                 return comprador;
             }
@@ -84,6 +87,21 @@ public class CompradorDAO {
 
         }
         return null;
+    }
+
+    public ArrayList<Comprador> getAllCompradores() throws SQLException{
+        String query = "SELECT * FROM comprador";
+        ArrayList<Comprador> compradores = new ArrayList<Comprador>();
+        PreparedStatement ps;
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Comprador comprador = buildUsuario(rs);
+            compradores.add(comprador);
+        }
+
+        return compradores;
     }
 
     public boolean delete(Comprador comprador) throws SQLException{
