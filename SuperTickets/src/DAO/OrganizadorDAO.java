@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class OrganizadorDAO {
     Connection con;
@@ -30,7 +31,7 @@ public class OrganizadorDAO {
     public Organizador buildUsuario(ResultSet rs) throws SQLException{
         Organizador organizador = new Organizador();
         organizador.setId(rs.getInt("usuario_id_organizador"));
-        organizador.setId(rs.getInt("cnpj"));
+        organizador.setCnpj(rs.getString("cnpj"));
 
         return organizador;
     }
@@ -82,6 +83,21 @@ public class OrganizadorDAO {
         return null;
     }
 
+    public ArrayList<Organizador> getAllOrganizadores() throws SQLException{
+        String query = "SELECT * FROM organizador";
+        ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
+        PreparedStatement ps;
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Organizador organizador = buildUsuario(rs);
+            organizadores.add(organizador);
+
+        }
+
+        return organizadores;
+    }
     public boolean delete(Organizador organizador) throws SQLException{
         String string = "DELETE FROM organizador WHERE id_usuario = ?";
         PreparedStatement pst;
