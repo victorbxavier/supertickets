@@ -13,6 +13,6 @@ public class EventoController {
     }
 
     public boolean cadastrarEvento(Evento evento){
-        return false;
+        return service.cadastrarEvento(evento);
     }
 }

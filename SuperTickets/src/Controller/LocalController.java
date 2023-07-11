@@ -1,13 +1,14 @@
 package Controller;
 
 import Entity.Local;
+import Service.LocalService;
 
 import java.util.ArrayList;
 
 public class LocalController {
+    LocalService service = new LocalService();
     public ArrayList<Local> getAllLocais(){
-        ArrayList<Local> locais = new ArrayList<Local>();
-        return locais;
+        return service.getAllLocais();
     }
 
     public ArrayList<String> getAllLocaisEnderecos(){
@@ -20,5 +21,9 @@ public class LocalController {
         }
 
         return enderecos;
+    }
+
+    public boolean cadastrarLocal(Local local){
+        return service.cadastrarLocal(local);
     }
 }

@@ -165,8 +165,12 @@ public class Menu {
 
         Local local = new Local(endereco, descricao);
 
-        //chama o controller, se der ok imprime
-        System.out.println("Local cadastrado com sucesso!");
+        if(localController.cadastrarLocal(local)){
+            System.out.println("Local cadastrado com sucesso!");
+        }
+        else{
+            System.out.println("Não foi possível concluir o cadastro!");
+        }
     }
 
     public void cadastrarEvento(){
