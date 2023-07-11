@@ -52,7 +52,7 @@ public class UsuarioController {
 
     public ArrayList<Integer> getAllCompradoresIds(){
         ArrayList<Comprador> compradores = new ArrayList<Comprador>();
-        compradores = service.getAllCompradores();
+        compradores = this.getAllCompradores();
         ArrayList<Integer> ids = new ArrayList<Integer>();
 
         for(Comprador comprador: compradores){
@@ -64,7 +64,7 @@ public class UsuarioController {
 
     public ArrayList<Integer> getAllOrganizadoresIds(){
         ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
-        organizadores = service.getAllOrganizadores();
+        organizadores = this.getAllOrganizadores();
         ArrayList<Integer> ids = new ArrayList<Integer>();
 
         for(Organizador organizador : organizadores){
@@ -72,6 +72,14 @@ public class UsuarioController {
         }
 
         return ids;
+    }
+
+    public ArrayList<Organizador> getAllOrganizadores(){
+        return service.getAllOrganizadores();
+    }
+
+    public ArrayList<Comprador> getAllCompradores(){
+        return service.getAllCompradores();
     }
 
     public boolean isComprador(int id){
@@ -84,5 +92,33 @@ public class UsuarioController {
         ArrayList<Integer> ids = new ArrayList<Integer>();
         ids = this.getAllOrganizadoresIds();
         return ids.contains(id);
+    }
+
+    public ArrayList<Usuario> compradoresToUsuarios(ArrayList<Comprador> compradores){
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+        for(Comprador comprador : compradores){
+            usuarios.add(this.compradorToUsuario(comprador));
+        }
+
+        return usuarios;
+    }
+
+    public ArrayList<Usuario> organizadoresToUsuarios(ArrayList<Organizador> organizadores){
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+        for(Organizador organizador : organizadores){
+            usuarios.add(this.organizadorToUsuario(organizador));
+        }
+
+        return usuarios;
+    }
+
+    public Usuario compradorToUsuario(Comprador comprador){
+        return service.getUsuarioById(comprador.getId());
+    }
+
+    public Usuario organizadorToUsuario(Organizador organizador){
+        return service.getUsuarioById(organizador.getId());
     }
 }
