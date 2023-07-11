@@ -5,6 +5,7 @@ import Entity.Comprador;
 import Entity.Organizador;
 import Entity.Usuario;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -39,7 +40,7 @@ public class Menu {
         Usuario usuario = new Usuario(email, senha);
         if(controller.login(usuario)){
             usuario = controller.getUsuarioByEmail(usuario.getEmail());
-            System.out.println("Bem vindo(a) " + usuario.getNome() + "!");
+            System.out.println("Bem vindo(a) " + usuario.getNome() + "!\n");
             if(controller.isComprador(usuario.getId())){
                 this.menuComprador();
             }
@@ -48,14 +49,17 @@ public class Menu {
             }
         }
         else{
-            System.out.println("Usuário não cadastrado!");
+            System.out.println("Login falhou!\n");
+            this.show();
         }
     }
 
 
     public void menuComprador(){
+        System.out.println("\t\t\t[MENU]");
         System.out.println("[1] Visualizar Eventos");
-        System.out.println("[2] Sair");
+        System.out.println("[2] Visualizar Organizadores");
+        System.out.println("[3] Sair");
 
         int opcao = scanner.nextInt();
         switch(opcao){
@@ -63,6 +67,9 @@ public class Menu {
                 //chamar funcao de exibir eventos
                 break;
             case 2:
+                this.exibirOrganizadores();
+                break;
+            case 3:
                 System.exit(0);
                 //termina o programa
                 break;
@@ -70,6 +77,7 @@ public class Menu {
     }
 
     public void menuOrganizador(){
+        System.out.println("\t\t\t[MENU]");
         System.out.println("[1] Visualizar Eventos");
         System.out.println("[2] Cadastrar Evento");
         System.out.println("[3] Visualizar Eventos Cadastrados");
@@ -172,6 +180,29 @@ public class Menu {
         }
         else{
             System.out.println("Não foi possível concluir o cadastro.");
+        }
+    }
+
+    public void exibirOrganizadores(){
+        ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
+        organizadores = controller.getAllOrganizadores();
+
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        usuarios = controller.organizadoresToUsuarios(organizadores);
+
+        System.out.println("Caso queira visualizar um organizador, digite o número à esquerda do nome.");
+        System.out.println("Organizadores:");
+        for(int i = 0; i<usuarios.size(); i++){
+            System.out.println("[" + i + "] " + usuarios.get(i).getNome());
+        }
+
+        System.out.println("[" + usuarios.size() + "] Sair");
+        int opcao = scanner.nextInt();
+        if(opcao == usuarios.size()){
+            this.menuComprador();
+        }
+        else{
+            usuarios.get(opcao).printUsuario();
         }
     }
 }

@@ -184,9 +184,37 @@ public class UsuarioService {
         return usuario;
     }
 
+    public boolean verificarEmail(String email){
+        Usuario usuario = new Usuario();
+        try{
+            usuario = usuarioDAO.getByEmail(email);
+        }catch(SQLException e){
+            System.out.println(e);
+            return false;
+        }
+
+        if(usuario != null){
+            return true;
+        }
+        else{
+            System.out.println("Email não cadastrado!");
+            return false;
+        }
+
+
+
+    }
+
     public boolean login(Usuario usuario){
+        if(!verificarEmail(usuario.getEmail())) return false;
+
         this.criptografar(usuario);
-        return this.verificarSenha(usuario);
+        boolean senhaVerificada = this.verificarSenha(usuario);
+        if(senhaVerificada) return true;
+
+        System.out.println("Senha incorreta!");
+        return false;
+
     }
 
 }
