@@ -27,6 +27,14 @@ public class Evento {
         this.localEnd = localEnd;
     }
 
+    public Evento(String nome, Date dataEvento, Date dataInscricao, int capacidade, int idOrganizador){
+        this.nome = nome;
+        this.dataEvento = dataEvento;
+        this.dataInscricao = dataInscricao;
+        this.capacidadeMaxima = capacidade;
+        this.idOrganizador = idOrganizador;
+    }
+
     public int getIdEvento() {
         return idEvento;
     }
