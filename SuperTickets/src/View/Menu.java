@@ -1,16 +1,22 @@
 package View;
 
+import Controller.EventoController;
+import Controller.LocalController;
 import Controller.UsuarioController;
-import Entity.Comprador;
-import Entity.Organizador;
-import Entity.Usuario;
+import Entity.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 public class Menu {
     Scanner scanner = new Scanner(System.in);
-    UsuarioController controller = new UsuarioController();
+    UsuarioController usuarioController = new UsuarioController();
+
+    EventoController eventoController = new EventoController();
+
+    LocalController localController = new LocalController();
     public void show(){
         String opcao = "";
         while(!opcao.equals("q") && !opcao.equals("s")){
@@ -38,13 +44,13 @@ public class Menu {
         String senha = scanner.nextLine();
 
         Usuario usuario = new Usuario(email, senha);
-        if(controller.login(usuario)){
-            usuario = controller.getUsuarioByEmail(usuario.getEmail());
+        if(usuarioController.login(usuario)){
+            usuario = usuarioController.getUsuarioByEmail(usuario.getEmail());
             System.out.println("Bem vindo(a) " + usuario.getNome() + "!\n");
-            if(controller.isComprador(usuario.getId())){
+            if(usuarioController.isComprador(usuario.getId())){
                 this.menuComprador();
             }
-            else if(controller.isOrganizador(usuario.getId())){
+            else if(usuarioController.isOrganizador(usuario.getId())){
                 this.menuOrganizador();
             }
         }
@@ -102,8 +108,99 @@ public class Menu {
     }
 
     public int getIdUsuario(Usuario usuario){
-        Usuario usuarioCriado = controller.getUsuarioByEmail(usuario.getEmail());
+        Usuario usuarioCriado = usuarioController.getUsuarioByEmail(usuario.getEmail());
         return usuarioCriado.getId();
+    }
+
+    public Evento adicionarLocalizacaoEvento(Evento evento){
+        boolean sair = false;
+        String endereco = "";
+        System.out.println("Selecione uma opção para adicionar um local: ");
+        System.out.println("[1] Exibir Locais");
+        System.out.println("[2] Criar um local");
+        int opcao = scanner.nextInt();
+        while(!sair){
+            if(opcao == 1){
+                endereco = this.exibirLocaisParaEventos();
+                if(!endereco.equals("")) sair = true;
+
+
+            }
+            else if(opcao == 2){
+                this.cadastrarLocal();
+            }
+        }
+
+        evento.setLocalEnd(endereco);
+        return evento;
+    }
+
+    public String exibirLocaisParaEventos(){
+        System.out.println("\t\t\t[Locais]");
+        ArrayList<String> locais = localController.getAllLocaisEnderecos();
+        for(int i=0; i<locais.size(); i++){
+            System.out.println("[" + i + "]: " + locais.get(i));
+        }
+
+        if(locais.size()>0){
+            int opcao = scanner.nextInt();
+            return locais.get(opcao);
+        }
+        else{
+            System.out.println("Não há locais cadastrados!");
+            System.out.println("Por favor cadastre um local para continuar");
+            return "";
+        }
+
+
+
+    }
+
+    public void cadastrarLocal(){
+        System.out.println("Preencha os dados do local");
+        System.out.println("Endereço: ");
+        String endereco = scanner.nextLine();
+        System.out.println("Descrição: ");
+        String descricao = scanner.nextLine();
+
+        Local local = new Local(endereco, descricao);
+
+        //chama o controller, se der ok imprime
+        System.out.println("Local cadastrado com sucesso!");
+    }
+
+    public void cadastrarEvento(){
+        System.out.println("Preencha os dados do evento:");
+
+        System.out.println("Nome: ");
+        String nome = scanner.nextLine();
+
+        System.out.println("Data do evento (dd/MM/yyyy): ");
+        String dataString = scanner.nextLine();
+        Date dataEvento = eventoController.stringToDate(dataString);
+
+        System.out.println("Data de inscrição (dd/MM/yyyy): ");
+        dataString = scanner.nextLine();
+        Date dataInscricao = eventoController.stringToDate(dataString);
+
+        System.out.println("Capacidade máxima do evento: ");
+        int capacidade = scanner.nextInt();
+
+        System.out.println("Email do organizador: ");
+        String email = scanner.nextLine();
+        Usuario organizador = usuarioController.getUsuarioByEmail(email);
+        int idOrganizador = organizador.getId();
+
+        Evento evento = new Evento(nome, dataEvento, dataInscricao, capacidade, idOrganizador);
+
+        this.adicionarLocalizacaoEvento(evento);
+
+        if(eventoController.cadastrarEvento(evento)){
+            System.out.println("Evento cadastrado com sucesso!");
+        }
+        else{
+            System.out.println("Não foi possível cadastrar o evento!");
+        }
     }
 
     public int cadastrarUsuario(){
@@ -121,7 +218,7 @@ public class Menu {
 
         Usuario usuario = new Usuario(nome, email, senha);
 
-        if(!controller.cadastrarUsuario(usuario)){
+        if(!usuarioController.cadastrarUsuario(usuario)){
             System.out.println("Não foi possível concluir o cadastro.");
             return -1;
         }
@@ -157,7 +254,7 @@ public class Menu {
 
         Comprador comprador = new Comprador(id, cpf);
 
-        if(controller.cadastrarComprador(comprador)){
+        if(usuarioController.cadastrarComprador(comprador)){
             System.out.println("Usuário cadastrado com sucesso!");
         }
         else{
@@ -175,7 +272,7 @@ public class Menu {
 
         Organizador organizador = new Organizador(id, cnpj);
 
-        if(controller.cadastrarOrganizador(organizador)){
+        if(usuarioController.cadastrarOrganizador(organizador)){
             System.out.println("Usuário cadastrado com sucesso!");
         }
         else{
@@ -185,10 +282,10 @@ public class Menu {
 
     public void exibirOrganizadores(){
         ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
-        organizadores = controller.getAllOrganizadores();
+        organizadores = usuarioController.getAllOrganizadores();
 
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
-        usuarios = controller.organizadoresToUsuarios(organizadores);
+        usuarios = usuarioController.organizadoresToUsuarios(organizadores);
 
         System.out.println("Caso queira visualizar um organizador, digite o número à esquerda do nome.");
         System.out.println("Organizadores:");
