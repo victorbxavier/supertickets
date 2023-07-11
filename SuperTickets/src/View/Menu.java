@@ -140,9 +140,13 @@ public class Menu {
         for(int i=0; i<locais.size(); i++){
             System.out.println("[" + i + "]: " + locais.get(i));
         }
+        System.out.println("[" + locais.size() + "] Sair");
 
         if(locais.size()>0){
             int opcao = scanner.nextInt();
+            if(opcao == locais.size()){
+                return "";
+            }
             return locais.get(opcao);
         }
         else{
