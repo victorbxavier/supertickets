@@ -95,7 +95,7 @@ public class Menu {
                 //chamar funcao de exibir eventos
                 break;
             case 2:
-                //chama funcao de cadastrar evento
+                this.cadastrarEvento();
                 break;
             case 3:
                 //chama funçao de exibir eventos cadastrados pelo usuario
@@ -115,16 +115,15 @@ public class Menu {
     public Evento adicionarLocalizacaoEvento(Evento evento){
         boolean sair = false;
         String endereco = "";
-        System.out.println("Selecione uma opção para adicionar um local: ");
-        System.out.println("[1] Exibir Locais");
-        System.out.println("[2] Criar um local");
-        int opcao = scanner.nextInt();
+
         while(!sair){
+            System.out.println("Selecione uma opção para adicionar um local: ");
+            System.out.println("[1] Exibir Locais");
+            System.out.println("[2] Criar um local");
+            int opcao = scanner.nextInt();
             if(opcao == 1){
                 endereco = this.exibirLocaisParaEventos();
                 if(!endereco.equals("")) sair = true;
-
-
             }
             else if(opcao == 2){
                 this.cadastrarLocal();
@@ -158,8 +157,10 @@ public class Menu {
 
     public void cadastrarLocal(){
         System.out.println("Preencha os dados do local");
-        System.out.println("Endereço: ");
+        System.out.print("Endereço: ");
+        scanner.nextLine();
         String endereco = scanner.nextLine();
+        System.out.println();
         System.out.println("Descrição: ");
         String descricao = scanner.nextLine();
 
@@ -174,9 +175,10 @@ public class Menu {
     }
 
     public void cadastrarEvento(){
-        System.out.println("Preencha os dados do evento:");
+        System.out.println("Preencha os dados do evento");
 
         System.out.println("Nome: ");
+        scanner.nextLine();
         String nome = scanner.nextLine();
 
         System.out.println("Data do evento (dd/MM/yyyy): ");
@@ -191,6 +193,7 @@ public class Menu {
         int capacidade = scanner.nextInt();
 
         System.out.println("Email do organizador: ");
+        scanner.nextLine();
         String email = scanner.nextLine();
         Usuario organizador = usuarioController.getUsuarioByEmail(email);
         int idOrganizador = organizador.getId();
@@ -205,6 +208,8 @@ public class Menu {
         else{
             System.out.println("Não foi possível cadastrar o evento!");
         }
+        
+        this.menuOrganizador();
     }
 
     public int cadastrarUsuario(){

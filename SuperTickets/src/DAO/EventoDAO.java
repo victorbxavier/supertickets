@@ -33,7 +33,7 @@ public class EventoDAO {
     }
 
     public boolean save(Evento evento) throws SQLException {
-        String query = "ISERT INTO evento (nome, data_evento, data_inscricao, capacidade_maxima, id_organizador_criacao, id_localidade) VALUES (?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO evento (nome, data_evento, data_inscricao, capacidade_maxima, id_organizador_criacao, id_localidade) VALUES (?, ?, ?, ?, ?, ?)";
         PreparedStatement pst;
         pst = con.prepareStatement(query);
         pst = buildFullStatementSave(pst, evento);

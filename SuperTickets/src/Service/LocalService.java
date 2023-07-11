@@ -24,7 +24,7 @@ public class LocalService {
         boolean success = false;
 
         try{
-            dao.save(local);
+            success = dao.save(local);
         }catch(SQLException e){
             System.out.println(e);
         }
