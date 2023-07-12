@@ -1,8 +1,14 @@
 package DAO;
 
+import Entity.Comprador;
 import Entity.Evento;
+
+import Entity.Ticket;
+import Entity.TipoTicket;
+
 import Entity.Local;
 import Entity.Usuario;
+
 import db.DBConnection;
 import db.DBDados;
 import db.DBDriver;
@@ -13,6 +19,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+
+import javax.naming.spi.DirStateFactory.Result;
+
+import com.mysql.cj.protocol.Resultset;
+
 
 public class EventoDAO {
     Connection con;
@@ -47,6 +59,19 @@ public class EventoDAO {
         pst.setString(6, evento.getLocalEnd());
 
         return pst;
+    }
+
+    public Evento buildEvento(ResultSet rs) throws SQLException{
+        Evento evento = new Evento();
+        evento.setIdEvento(rs.getInt("id_evento"));
+        evento.setNome(rs.getString("nome"));
+        evento.setDataEvento(rs.getDate("data_evento"));
+        evento.setDataInscricao(rs.getDate("data_inscricao"));
+        evento.setCapacidadeMaxima(rs.getInt("capacidade_maxima"));
+        evento.setIdOrganizador(rs.getInt("id_organizador_criacao"));
+        evento.setLocalEnd(rs.getString("localEnd"));
+
+        return evento;
     }
 
     public boolean save(Evento evento) throws SQLException {

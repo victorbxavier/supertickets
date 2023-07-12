@@ -18,7 +18,9 @@ public class Menu {
 
     LocalController localController = new LocalController();
 
+
     Usuario usuarioLogado = new Usuario();
+
     public void show(){
         String opcao = "";
         while(!opcao.equals("q") && !opcao.equals("s")){

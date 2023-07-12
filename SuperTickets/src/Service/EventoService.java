@@ -1,7 +1,9 @@
 package Service;
 
 import DAO.EventoDAO;
+import Entity.Comprador;
 import Entity.Evento;
+import Entity.Ticket;
 
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -48,6 +50,7 @@ public class EventoService {
         return eventos;
     }
 
+
     public ArrayList<Evento> getAllEventosCadastrados(int id){
         ArrayList<Evento> eventos = new ArrayList<Evento>();
 
@@ -71,4 +74,5 @@ public class EventoService {
 
         return eventos;
     }
+
 }

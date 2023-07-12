@@ -1,8 +1,12 @@
 package Controller;
 
+import Entity.Comprador;
 import Entity.Evento;
+import Entity.Ticket;
 import Service.EventoService;
 
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
