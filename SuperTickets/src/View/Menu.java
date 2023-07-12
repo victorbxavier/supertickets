@@ -133,9 +133,20 @@ public class Menu {
         int opcao = scanner.nextInt();
         if(opcao != eventos.size()){
             eventos.get(opcao).printEvento();
+            String comprar = "";
+            System.out.println("Comprar ticket? (s/n)");
+            scanner.nextLine();
+            comprar = scanner.nextLine();
+            if(comprar.equals("s")){
+                this.comprarTickets(eventos.get(opcao).getIdEvento());
+            }
         }
     }
 
+    public void comprarTickets(int id){
+        System.out.println("VocÊ está comprando um tiket!");
+        //chamar função de comprar ticket no controller
+    }
 
     public void exibirEventos(){
         System.out.println("Digite o valor a esquerda do evento para ver detalhes\n");
@@ -151,6 +162,13 @@ public class Menu {
         int opcao = scanner.nextInt();
         if(opcao != eventos.size()){
             eventos.get(opcao).printEvento();
+            String comprar = "";
+            System.out.println("Comprar ticket? (s/n)");
+            scanner.nextLine();
+            comprar = scanner.nextLine();
+            if(comprar.equals("s")){
+                this.comprarTickets(eventos.get(opcao).getIdEvento());
+            }
         }
 
     }
