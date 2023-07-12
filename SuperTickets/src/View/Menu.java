@@ -82,28 +82,48 @@ public class Menu {
         }
     }
 
-    public void menuOrganizador(){
-        System.out.println("\t\t\t[MENU]");
-        System.out.println("[1] Visualizar Eventos");
-        System.out.println("[2] Cadastrar Evento");
-        System.out.println("[3] Visualizar Eventos Cadastrados");
-        System.out.println("[4] Sair");
+    public void exibirEventos(){
+        System.out.println("Digite o valor a esquerda do evento para ver detalhes\n");
+        System.out.println("\t\t\t[Eventos]");
+        ArrayList<Evento> eventos = eventoController.getAllEventos();
+
+        for(int i=0; i< eventos.size(); i++){
+            System.out.println(("[" + i + "] " + eventos.get(i).getNome()));
+        }
+        System.out.println("[" + eventos.size() + "] Sair");
 
         int opcao = scanner.nextInt();
-        switch(opcao){
-            case 1:
-                //chamar funcao de exibir eventos
-                break;
-            case 2:
-                this.cadastrarEvento();
-                break;
-            case 3:
-                //chama funçao de exibir eventos cadastrados pelo usuario
-                break;
-            case 4:
-                System.exit(0);
-                //termina o programa
-                break;
+        if(opcao != eventos.size()){
+            eventos.get(opcao).printEvento();
+        }
+
+    }
+
+
+    public void menuOrganizador(){
+        boolean sair = false;
+        while(!sair){
+            System.out.println("\t\t\t[MENU]");
+            System.out.println("[1] Visualizar Eventos");
+            System.out.println("[2] Cadastrar Evento");
+            System.out.println("[3] Visualizar Eventos Cadastrados");
+            System.out.println("[4] Sair");
+
+            int opcao = scanner.nextInt();
+            switch(opcao){
+                case 1:
+                    this.exibirEventos();
+                    break;
+                case 2:
+                    this.cadastrarEvento();
+                    break;
+                case 3:
+                    //chama funçao de exibir eventos cadastrados pelo usuario
+                    break;
+                case 4:
+                    sair = true;
+                    break;
+            }
         }
     }
 

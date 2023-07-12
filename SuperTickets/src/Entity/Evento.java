@@ -78,5 +78,13 @@ public class Evento {
         this.localEnd = localEnd;
     }
 
+    public void printEvento(){
+        System.out.println("Nome: " + this.getNome());
+        System.out.println("Data do Evento: " + this.dataEvento);
+        System.out.println("Data de Inscrição: " + this.dataInscricao);
+        System.out.println("Capacidade máxima: " + this.capacidadeMaxima);
+        System.out.println("Endereço: " + this.localEnd);
+    }
+
 
 }
