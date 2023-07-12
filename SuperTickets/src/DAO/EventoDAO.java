@@ -1,13 +1,17 @@
 package DAO;
 
 import Entity.Evento;
+import Entity.Local;
 import db.DBConnection;
 import db.DBDados;
 import db.DBDriver;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class EventoDAO {
     Connection con;
@@ -17,6 +21,18 @@ public class EventoDAO {
         if (con == null) {
             con = new DBConnection().getConnection(DBDriver.MYSQL, dados.getSchema(), dados.getUser(), dados.getPassword());
         }
+    }
+
+    public Evento buildEvento(ResultSet rs) throws SQLException{
+        Evento evento = new Evento();
+        evento.setIdEvento(rs.getInt("id_evento"));
+        evento.setNome(rs.getString("nome"));
+        evento.setDataEvento(rs.getDate("data_evento"));
+        evento.setDataInscricao(rs.getDate("data_inscricao"));
+        evento.setCapacidadeMaxima(rs.getInt("capacidade_maxima"));
+        evento.setIdOrganizador(rs.getInt("id_organizador_criacao"));
+        evento.setLocalEnd(rs.getString("id_localidade"));
+        return evento;
     }
 
     public PreparedStatement buildFullStatementSave(PreparedStatement pst, Evento evento) throws SQLException{
@@ -45,5 +61,20 @@ public class EventoDAO {
         }
 
         return false;
+    }
+
+    public ArrayList<Evento> getAllEventos() throws SQLException{
+        String query = "SELECT * FROM evento";
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+        PreparedStatement ps;
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()){
+            Evento evento = buildEvento(rs);
+            eventos.add(evento);
+        }
+
+        return eventos;
     }
 }
