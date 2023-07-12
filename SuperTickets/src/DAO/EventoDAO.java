@@ -96,4 +96,23 @@ public class EventoDAO {
 
         return eventos;
     }
+
+    public ArrayList<Evento> getByName(String nome) throws SQLException{
+        String query = "SELECT * FROM evento";
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+
+        PreparedStatement ps;
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Evento evento = buildEvento(rs);
+            if (evento.getNome().equals(nome)) {
+                eventos.add(evento);
+            }
+
+        }
+
+        return eventos;
+    }
 }

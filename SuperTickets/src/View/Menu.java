@@ -70,7 +70,8 @@ public class Menu {
             System.out.println("\t\t\t[MENU]");
             System.out.println("[1] Visualizar Eventos");
             System.out.println("[2] Visualizar Organizadores");
-            System.out.println("[3] Sair");
+            System.out.println("[3] Buscar Evento");
+            System.out.println("[4] Sair");
 
             int opcao = scanner.nextInt();
             switch(opcao){
@@ -81,11 +82,35 @@ public class Menu {
                     this.exibirOrganizadores();
                     break;
                 case 3:
+                    this.buscarEventos();
+                    break;
+                case 4:
                     sair = true;
                     break;
             }
         }
     }
+
+    public void buscarEventos(){
+        System.out.println("Digite o nome do evento");
+        scanner.nextLine();
+        String nome  = scanner.nextLine();
+
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+        eventos = eventoController.getEventosByNome(nome);
+
+        for(int i=0; i< eventos.size(); i++){
+            System.out.println(("[" + i + "] " + eventos.get(i).getNome()));
+        }
+        if(eventos.size() == 0) System.out.println("Não há eventos com esse nome.");
+        System.out.println("[" + eventos.size() + "] Sair");
+
+        int opcao = scanner.nextInt();
+        if(opcao != eventos.size()){
+            eventos.get(opcao).printEvento();
+        }
+    }
+
 
     public void exibirEventos(){
         System.out.println("Digite o valor a esquerda do evento para ver detalhes\n");
@@ -132,7 +157,8 @@ public class Menu {
             System.out.println("[1] Visualizar Eventos");
             System.out.println("[2] Cadastrar Evento");
             System.out.println("[3] Visualizar Eventos Cadastrados");
-            System.out.println("[4] Sair");
+            System.out.println("[4] Buscar Eventos");
+            System.out.println("[5] Sair");
 
             int opcao = scanner.nextInt();
             switch(opcao){
@@ -146,6 +172,9 @@ public class Menu {
                     this.exibirEventosCadastrados();
                     break;
                 case 4:
+                    this.buscarEventos();
+                    break;
+                case 5:
                     sair = true;
                     break;
             }

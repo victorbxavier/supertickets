@@ -30,4 +30,8 @@ public class EventoController {
         return evento;
     }
 
+    public ArrayList<Evento> getEventosByNome(String nome){
+        return service.getEventosByName(nome);
+    }
+
 }
