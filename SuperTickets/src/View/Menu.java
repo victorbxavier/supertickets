@@ -17,6 +17,7 @@ public class Menu {
     EventoController eventoController = new EventoController();
 
     LocalController localController = new LocalController();
+
     public void show(){
         String opcao = "";
         while(!opcao.equals("q") && !opcao.equals("s")){

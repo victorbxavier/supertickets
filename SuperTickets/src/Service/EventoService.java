@@ -3,6 +3,7 @@ package Service;
 import DAO.EventoDAO;
 import Entity.Comprador;
 import Entity.Evento;
+import Entity.Ticket;
 
 import java.sql.SQLException;
 import java.text.ParseException;

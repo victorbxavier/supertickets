@@ -2,6 +2,8 @@ package DAO;
 
 import Entity.Comprador;
 import Entity.Evento;
+import Entity.Ticket;
+import Entity.TipoTicket;
 import db.DBConnection;
 import db.DBDados;
 import db.DBDriver;
