@@ -17,6 +17,8 @@ public class Menu {
     EventoController eventoController = new EventoController();
 
     LocalController localController = new LocalController();
+
+    Usuario usuarioLogado = new Usuario();
     public void show(){
         String opcao = "";
         while(!opcao.equals("q") && !opcao.equals("s")){
@@ -47,6 +49,7 @@ public class Menu {
         if(usuarioController.login(usuario)){
             usuario = usuarioController.getUsuarioByEmail(usuario.getEmail());
             System.out.println("Bem vindo(a) " + usuario.getNome() + "!\n");
+            this.usuarioLogado = usuario;
             if(usuarioController.isComprador(usuario.getId())){
                 this.menuComprador();
             }
@@ -90,12 +93,32 @@ public class Menu {
         for(int i=0; i< eventos.size(); i++){
             System.out.println(("[" + i + "] " + eventos.get(i).getNome()));
         }
+        if(eventos.size() == 0) System.out.println("Não há eventos cadastrados.");
         System.out.println("[" + eventos.size() + "] Sair");
 
         int opcao = scanner.nextInt();
         if(opcao != eventos.size()){
             eventos.get(opcao).printEvento();
         }
+
+    }
+
+    public void exibirEventosCadastrados(){
+        System.out.println("Digite o valor a esquerda do evento para ver detalhes\n");
+        System.out.println("\t\t\t[Eventos]");
+        ArrayList<Evento> eventos = eventoController.getAllEventosCadastrados(usuarioLogado.getId());
+
+        for(int i=0; i< eventos.size(); i++){
+            System.out.println(("[" + i + "] " + eventos.get(i).getNome()));
+        }
+        if(eventos.size() == 0) System.out.println("Você ainda não cadastrou nenhum evento!");
+        System.out.println("[" + eventos.size() + "] Sair");
+
+        int opcao = scanner.nextInt();
+        if(opcao != eventos.size()){
+            eventos.get(opcao).printEvento();
+        }
+
 
     }
 
@@ -118,7 +141,7 @@ public class Menu {
                     this.cadastrarEvento();
                     break;
                 case 3:
-                    //chama funçao de exibir eventos cadastrados pelo usuario
+                    this.exibirEventosCadastrados();
                     break;
                 case 4:
                     sair = true;
@@ -216,11 +239,7 @@ public class Menu {
         System.out.println("Capacidade máxima do evento: ");
         int capacidade = scanner.nextInt();
 
-        System.out.println("Email do organizador: ");
-        scanner.nextLine();
-        String email = scanner.nextLine();
-        Usuario organizador = usuarioController.getUsuarioByEmail(email);
-        int idOrganizador = organizador.getId();
+        int idOrganizador = usuarioLogado.getId();
 
         Evento evento = new Evento(nome, dataEvento, dataInscricao, capacidade, idOrganizador);
 
