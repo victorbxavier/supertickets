@@ -1,5 +1,6 @@
 package View;
 
+import Controller.AlocacaoController;
 import Controller.EventoController;
 import Controller.LocalController;
 import Controller.UsuarioController;
@@ -17,7 +18,7 @@ public class Menu {
     EventoController eventoController = new EventoController();
 
     LocalController localController = new LocalController();
-
+    AlocacaoController alocaoController = new AlocacaoController();
 
     Usuario usuarioLogado = new Usuario();
 
@@ -146,8 +147,19 @@ public class Menu {
     }
 
     public void comprarTickets(int id){
-        System.out.println("VocÊ está comprando um tiket!");
-        //chamar função de comprar ticket no controller
+        Alocacao alocao = new Alocacao();
+
+        alocao.setId_evento(id);
+        alocao.setUsuario_id_comprador(usuarioLogado.getId());
+        alocao.setId_assento(0);
+        alocao.setTicket_codigo(2);
+
+        if(this.alocaoController.comprarTicket(alocao)){
+            System.out.println("Ticket comprado com sucesso");
+        }
+        else{
+            System.out.println("Não foi possível comprar o ticket.");
+        }
     }
 
     public void exibirEventos(){

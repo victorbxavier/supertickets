@@ -21,7 +21,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 
-import javax.naming.spi.DirStateFactory.Result;
+//import javax.naming.spi.DirStateFactory.Result;
 
 import com.mysql.cj.protocol.Resultset;
 
@@ -61,18 +61,7 @@ public class EventoDAO {
         return pst;
     }
 
-    public Evento buildEvento(ResultSet rs) throws SQLException{
-        Evento evento = new Evento();
-        evento.setIdEvento(rs.getInt("id_evento"));
-        evento.setNome(rs.getString("nome"));
-        evento.setDataEvento(rs.getDate("data_evento"));
-        evento.setDataInscricao(rs.getDate("data_inscricao"));
-        evento.setCapacidadeMaxima(rs.getInt("capacidade_maxima"));
-        evento.setIdOrganizador(rs.getInt("id_organizador_criacao"));
-        evento.setLocalEnd(rs.getString("localEnd"));
 
-        return evento;
-    }
 
     public boolean save(Evento evento) throws SQLException {
         String query = "INSERT INTO evento (nome, data_evento, data_inscricao, capacidade_maxima, id_organizador_criacao, id_localidade) VALUES (?, ?, ?, ?, ?, ?)";
