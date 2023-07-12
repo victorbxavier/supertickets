@@ -222,4 +222,16 @@ public class UsuarioService {
 
     }
 
+    public ArrayList<Usuario> getUsuariosByNome(String nome){
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+        try{
+            usuarios = usuarioDAO.getByNome(nome);
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        return usuarios;
+    }
+
 }

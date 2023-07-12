@@ -71,7 +71,8 @@ public class Menu {
             System.out.println("[1] Visualizar Eventos");
             System.out.println("[2] Visualizar Organizadores");
             System.out.println("[3] Buscar Evento");
-            System.out.println("[4] Sair");
+            System.out.println("[4] Buscar Organizadores");
+            System.out.println("[5] Sair");
 
             int opcao = scanner.nextInt();
             switch(opcao){
@@ -85,10 +86,34 @@ public class Menu {
                     this.buscarEventos();
                     break;
                 case 4:
+                    this.buscarOrganizadores();
+                    break;
+                case 5:
                     sair = true;
                     break;
             }
         }
+    }
+
+    public void buscarOrganizadores(){
+        System.out.println("Digite o nome do organizador");
+        scanner.nextLine();
+        String nome  = scanner.nextLine();
+
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        usuarios = usuarioController.getOrganizadoresByNome(nome);
+
+        for(int i=0; i< usuarios.size(); i++){
+            System.out.println(("[" + i + "] " + "Nome: " + usuarios.get(i).getNome()) + ", Email: " + usuarios.get(i).getEmail());
+        }
+        if(usuarios.size() == 0) System.out.println("Não há organizadores com esse nome.");
+        System.out.println("[" + usuarios.size() + "] Sair");
+
+        int opcao = scanner.nextInt();
+        if(opcao != usuarios.size()){
+            usuarios.get(opcao).printUsuario();
+        }
+
     }
 
     public void buscarEventos(){
@@ -306,7 +331,6 @@ public class Menu {
             return -1;
         }
 
-        //pega o id que foi cadastrado no banco
         return this.getIdUsuario(usuario);
 
 
