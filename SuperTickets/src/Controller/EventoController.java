@@ -21,9 +21,17 @@ public class EventoController {
         return service.getAllEventos();
     }
 
+    public ArrayList<Evento> getAllEventosCadastrados(int id){
+        return service.getAllEventosCadastrados(id);
+    }
+
     public Evento getEventoById(int id){
         Evento evento = new Evento();
         return evento;
+    }
+
+    public ArrayList<Evento> getEventosByNome(String nome){
+        return service.getEventosByName(nome);
     }
 
 }

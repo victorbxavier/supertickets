@@ -2,6 +2,7 @@ package DAO;
 
 import Entity.Evento;
 import Entity.Local;
+import Entity.Usuario;
 import db.DBConnection;
 import db.DBDados;
 import db.DBDriver;
@@ -73,6 +74,43 @@ public class EventoDAO {
         while (rs.next()){
             Evento evento = buildEvento(rs);
             eventos.add(evento);
+        }
+
+        return eventos;
+    }
+
+    public ArrayList<Evento> getAllEventosByUsuarioId(int id) throws SQLException{
+        String query = "SELECT * FROM evento";
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+        PreparedStatement ps;
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Evento evento = buildEvento(rs);
+            if (evento.getIdOrganizador() == id) {
+                eventos.add(evento);
+            }
+
+        }
+
+        return eventos;
+    }
+
+    public ArrayList<Evento> getByName(String nome) throws SQLException{
+        String query = "SELECT * FROM evento";
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+
+        PreparedStatement ps;
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Evento evento = buildEvento(rs);
+            if (evento.getNome().equals(nome)) {
+                eventos.add(evento);
+            }
+
         }
 
         return eventos;
