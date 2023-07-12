@@ -2,21 +2,29 @@ package DAO;
 
 import Entity.Comprador;
 import Entity.Evento;
+
 import Entity.Ticket;
 import Entity.TipoTicket;
+
+import Entity.Local;
+import Entity.Usuario;
+
 import db.DBConnection;
 import db.DBDados;
 import db.DBDriver;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+
 import javax.naming.spi.DirStateFactory.Result;
 
 import com.mysql.cj.protocol.Resultset;
+
 
 public class EventoDAO {
     Connection con;
@@ -26,6 +34,18 @@ public class EventoDAO {
         if (con == null) {
             con = new DBConnection().getConnection(DBDriver.MYSQL, dados.getSchema(), dados.getUser(), dados.getPassword());
         }
+    }
+
+    public Evento buildEvento(ResultSet rs) throws SQLException{
+        Evento evento = new Evento();
+        evento.setIdEvento(rs.getInt("id_evento"));
+        evento.setNome(rs.getString("nome"));
+        evento.setDataEvento(rs.getDate("data_evento"));
+        evento.setDataInscricao(rs.getDate("data_inscricao"));
+        evento.setCapacidadeMaxima(rs.getInt("capacidade_maxima"));
+        evento.setIdOrganizador(rs.getInt("id_organizador_criacao"));
+        evento.setLocalEnd(rs.getString("id_localidade"));
+        return evento;
     }
 
     public PreparedStatement buildFullStatementSave(PreparedStatement pst, Evento evento) throws SQLException{
@@ -70,16 +90,52 @@ public class EventoDAO {
     }
 
     public ArrayList<Evento> getAllEventos() throws SQLException{
-
         String query = "SELECT * FROM evento";
         ArrayList<Evento> eventos = new ArrayList<Evento>();
-        PreparedStatement pst;
-        pst = con.prepareStatement(query);
-        ResultSet rs = pst.executeQuery();
+        PreparedStatement ps;
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()){
+            Evento evento = buildEvento(rs);
+            eventos.add(evento);
+        }
+
+        return eventos;
+    }
+
+    public ArrayList<Evento> getAllEventosByUsuarioId(int id) throws SQLException{
+        String query = "SELECT * FROM evento";
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+        PreparedStatement ps;
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
             Evento evento = buildEvento(rs);
-            eventos.add(evento);
+            if (evento.getIdOrganizador() == id) {
+                eventos.add(evento);
+            }
+
+        }
+
+        return eventos;
+    }
+
+    public ArrayList<Evento> getByName(String nome) throws SQLException{
+        String query = "SELECT * FROM evento";
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+
+        PreparedStatement ps;
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Evento evento = buildEvento(rs);
+            if (evento.getNome().equals(nome)) {
+                eventos.add(evento);
+            }
+
         }
 
         return eventos;

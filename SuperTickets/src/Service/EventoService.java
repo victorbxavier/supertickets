@@ -49,4 +49,30 @@ public class EventoService {
 
         return eventos;
     }
+
+
+    public ArrayList<Evento> getAllEventosCadastrados(int id){
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+
+        try{
+            eventos = dao.getAllEventosByUsuarioId(id);
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        return eventos;
+    }
+
+    public ArrayList<Evento> getEventosByName(String nome){
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+
+        try{
+            eventos = dao.getByName(nome);
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        return eventos;
+    }
+
 }

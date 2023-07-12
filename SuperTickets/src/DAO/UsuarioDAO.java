@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UsuarioDAO {
     Connection con;
@@ -83,6 +84,26 @@ public class UsuarioDAO {
 
         }
         return null;
+
+    }
+
+    public ArrayList<Usuario> getByNome(String nome) throws SQLException{
+        String query = "SELECT * FROM usuario";
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+
+        PreparedStatement ps;
+        ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Usuario usuario = buildUsuario(rs);
+            if (usuario.getNome().equals(nome)) {
+                usuarios.add(usuario);
+            }
+
+        }
+
+        return usuarios;
 
     }
 

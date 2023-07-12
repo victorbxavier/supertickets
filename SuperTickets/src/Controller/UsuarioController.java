@@ -121,4 +121,23 @@ public class UsuarioController {
     public Usuario organizadorToUsuario(Organizador organizador){
         return service.getUsuarioById(organizador.getId());
     }
+
+    public ArrayList<Usuario> getUsuariosByNome(String nome){
+        return service.getUsuariosByNome(nome);
+    }
+
+    public ArrayList<Usuario> getOrganizadoresByNome(String nome){
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        ArrayList<Usuario> organizadores = new ArrayList<Usuario>();
+
+        organizadores = this.getUsuariosByNome(nome);
+        for(Usuario usuario : usuarios){
+            if(isOrganizador(usuario.getId())){
+                organizadores.add(usuario);
+            }
+        }
+
+        return organizadores;
+    }
+
 }

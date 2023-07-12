@@ -26,4 +26,5 @@ public class LocalController {
     public boolean cadastrarLocal(Local local){
         return service.cadastrarLocal(local);
     }
+
 }
