@@ -65,23 +65,25 @@ public class Menu {
 
 
     public void menuComprador(){
-        System.out.println("\t\t\t[MENU]");
-        System.out.println("[1] Visualizar Eventos");
-        System.out.println("[2] Visualizar Organizadores");
-        System.out.println("[3] Sair");
+        boolean sair = false;
+        while(!sair){
+            System.out.println("\t\t\t[MENU]");
+            System.out.println("[1] Visualizar Eventos");
+            System.out.println("[2] Visualizar Organizadores");
+            System.out.println("[3] Sair");
 
-        int opcao = scanner.nextInt();
-        switch(opcao){
-            case 1:
-                //chamar funcao de exibir eventos
-                break;
-            case 2:
-                this.exibirOrganizadores();
-                break;
-            case 3:
-                System.exit(0);
-                //termina o programa
-                break;
+            int opcao = scanner.nextInt();
+            switch(opcao){
+                case 1:
+                    this.exibirEventos();
+                    break;
+                case 2:
+                    this.exibirOrganizadores();
+                    break;
+                case 3:
+                    sair = true;
+                    break;
+            }
         }
     }
 
