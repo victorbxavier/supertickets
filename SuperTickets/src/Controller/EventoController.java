@@ -1,8 +1,11 @@
 package Controller;
 
+import Entity.Comprador;
 import Entity.Evento;
 import Service.EventoService;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class EventoController {
@@ -14,5 +17,9 @@ public class EventoController {
 
     public boolean cadastrarEvento(Evento evento){
         return service.cadastrarEvento(evento);
+    }
+
+     public ArrayList<Evento> getAllEventosName(){
+        return service.getAllEventos();
     }
 }

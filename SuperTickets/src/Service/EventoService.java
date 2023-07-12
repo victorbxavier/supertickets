@@ -1,11 +1,13 @@
 package Service;
 
 import DAO.EventoDAO;
+import Entity.Comprador;
 import Entity.Evento;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class EventoService {
@@ -33,5 +35,17 @@ public class EventoService {
         }
 
         return success;
+    }
+
+    public ArrayList<Evento> getAllEventos(){
+        ArrayList<Evento> eventos = new ArrayList<Evento>();
+
+        try{
+            eventos = dao.getAllEventos();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        return eventos;
     }
 }
