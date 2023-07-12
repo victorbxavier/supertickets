@@ -7,7 +7,14 @@ import Entity.Comprador;
 import Entity.Organizador;
 import Entity.Usuario;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 
 public class UsuarioService {
 
@@ -15,7 +22,11 @@ public class UsuarioService {
     CompradorDAO compradorDAO = new CompradorDAO();
     OrganizadorDAO organizadorDAO = new OrganizadorDAO();
 
+    private static final String SALT = "super_tickets_salt";
+
     public boolean cadastrarUsuario(Usuario usuario){
+        this.criptografar(usuario);
+
         try{
             usuarioDAO.save(usuario);
         }catch(SQLException e){
@@ -36,6 +47,7 @@ public class UsuarioService {
     }
 
     public boolean cadastrarOrganizador(Organizador organizador){
+
         try{
             organizadorDAO.save(organizador);
         }catch(SQLException e){
@@ -68,6 +80,31 @@ public class UsuarioService {
 
         return usuario;
     }
+
+    public ArrayList<Comprador> getAllCompradores(){
+        ArrayList<Comprador> compradores = new ArrayList<Comprador>();
+
+        try{
+            compradores = compradorDAO.getAllCompradores();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        return compradores;
+    }
+
+    public ArrayList<Organizador> getAllOrganizadores(){
+        ArrayList<Organizador> organizadores = new ArrayList<Organizador>();
+
+        try{
+            organizadores = organizadorDAO.getAllOrganizadores();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+
+        return organizadores;
+    }
+
 
     public Comprador getCompradorById(int id){
         Comprador comprador = new Comprador();
@@ -115,6 +152,74 @@ public class UsuarioService {
         }
 
         return organizador;
+    }
+
+    private static String bytesToHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
+    }
+
+    public static String encryptPassword(String password) {
+        String saltedPassword = SALT + password;
+        try{
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] hashedBytes = md.digest(saltedPassword.getBytes());
+            return bytesToHex(hashedBytes);
+        }catch(NoSuchAlgorithmException e){
+            System.out.println(e);
+        }
+        return "";
+
+    }
+
+    public boolean verificarSenha(Usuario usuario){
+        Usuario usuarioSalvo = this.getUsuarioByEmail(usuario.getEmail());
+        return usuarioSalvo.getSenha().equals(usuario.getSenha());
+    }
+
+    public Usuario criptografar(Usuario usuario){
+        String senha = usuario.getSenha();
+        String senhaCriptografada = encryptPassword(senha);
+        usuario.setSenha(senhaCriptografada);
+        return usuario;
+    }
+
+
+
+    public boolean verificarEmail(String email){
+        Usuario usuario = new Usuario();
+        try{
+            usuario = usuarioDAO.getByEmail(email);
+        }catch(SQLException e){
+            System.out.println(e);
+            return false;
+        }
+
+        if(usuario != null){
+            return true;
+        }
+        else{
+            System.out.println("Email não cadastrado!");
+            return false;
+        }
+
+
+
+    }
+
+    public boolean login(Usuario usuario){
+        if(!verificarEmail(usuario.getEmail())) return false;
+
+        this.criptografar(usuario);
+        boolean senhaVerificada = this.verificarSenha(usuario);
+        if(senhaVerificada) return true;
+
+        System.out.println("Senha incorreta!");
+        return false;
+
     }
 
 }
